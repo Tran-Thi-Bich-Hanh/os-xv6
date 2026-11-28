@@ -1,3 +1,5 @@
+#include "usyscall.h"
+
 // Saved registers for kernel context switches.
 struct context {
   uint64 ra;
@@ -28,7 +30,7 @@ struct cpu {
 
 extern struct cpu cpus[NCPU];
 
-// per-process data for the trap handling code in trampoline.S.
+// // per-process data for the trap handling code in trampoline.S.
 // sits in a page by itself just under the trampoline page in the
 // user page table. not specially mapped in the kernel page table.
 // uservec in trampoline.S saves user registers in the trapframe,
@@ -99,6 +101,7 @@ struct proc {
   uint64 kstack;               // Virtual address of kernel stack
   uint64 sz;                   // Size of process memory (bytes)
   pagetable_t pagetable;       // User page table
+  struct usyscall *usyscall;   // data page for usyscall
   struct trapframe *trapframe; // data page for trampoline.S
   struct context context;      // swtch() here to run process
   struct file *ofile[NOFILE];  // Open files

@@ -1,4 +1,9 @@
 struct stat;
+// B7 
+struct usyscall {
+  int pid;
+};
+
 
 // system calls
 int fork(void);
@@ -38,6 +43,8 @@ void* memset(void*, int, uint);
 int atoi(const char*);
 int memcmp(const void *, const void *, uint);
 void *memcpy(void *, const void *, uint);
+// B7
+int ugetpid(void);
 
 // umalloc.c
 void* malloc(uint);
